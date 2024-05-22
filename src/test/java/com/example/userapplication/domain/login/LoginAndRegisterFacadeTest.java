@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginAndRegisterFacadeTest {
-
-    private LoginAndRegisterFacade facade;
+    private final LoginAndRegisterFacade facade = new LoginAndRegisterFacade(new InMemoryUserRepositoryTestImp());
 
     @Test
     public void should_successfully_register_user() {
@@ -40,6 +39,7 @@ class LoginAndRegisterFacadeTest {
 //                }
 //        );
 //        assertEquals("Exception message", exception.getMessage());
+        assertTrue(false);
 
     }
 
@@ -50,16 +50,23 @@ class LoginAndRegisterFacadeTest {
         facade.registerUser(user);
 
         //when
-        User loggedUser = facade.login(user);
+        boolean ifUserLogin = facade.login(user);
 
         //then
-        assertEquals(user, loggedUser);
+        assertTrue(ifUserLogin);
 
     }
 
     @Test
     public void should_not_login_user_when_user_not_exist_in_database() {
-        //throws exception??
+        //given
+        User user = new User("Name", "password", "email");
+
+        //when
+        boolean ifUserLogin = facade.login(user);
+
+        //then
+        assertFalse(ifUserLogin);
     }
 
     @Test
@@ -70,10 +77,10 @@ class LoginAndRegisterFacadeTest {
 
         //when
         User updatedUser = facade.changeEmail(user, "newEmail");
+        boolean userExist = facade.ifUserExist(new User("Name", "password", "newEmail"));
 
         //then
-        assertEquals(new User("Name", "password", "newEmail"), updatedUser);
-
+        assertTrue(userExist);
     }
 
     @Test
@@ -84,15 +91,24 @@ class LoginAndRegisterFacadeTest {
 
         //when
         User updatedUser = facade.changePassword(user, "newPassword");
+        boolean userExist = facade.ifUserExist(new User("Name", "newPassword", "email"));
 
         //then
-        assertEquals(new User("Name", "newPassword", "email"), updatedUser);
-
+        assertTrue(userExist);
     }
 
     @Test
     public void should_delete_user_who_exist_in_database() {
+        //given
+        User user = new User("Name", "password", "email");
+        facade.registerUser(user);
 
+        //when
+        facade.removeUser(user);
+        boolean ifUserDeleted = facade.ifUserExist(user);
+
+        //then
+        assertFalse(ifUserDeleted);
     }
 
 
