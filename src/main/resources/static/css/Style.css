@@ -1,0 +1,250 @@
+body {
+    background-color: #303030;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+}
+
+h1.logo {
+    font-size: 80px;
+    font-weight: 700;
+    color: #ddd;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 80px;
+    margin-bottom: 50px;
+
+}
+
+#listPreferences {
+    text-align: center;
+    width: 200px;
+    margin: auto;
+}
+
+.error{
+    font-size: 30px;
+    font-weight: 700;
+    color: #dd6663;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.success{
+    font-size: 30px;
+    font-weight: 700;
+    color: #6fdd79;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+#showRoom {
+    text-align: center;
+    margin: auto;
+}
+
+#logoPicture {
+    width: 100%;
+    height: 500px;
+    opacity: 0.8;
+}
+
+nav {
+    background-color: #1c74b2;
+    text-align: center;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    font-size: 18px;
+    min-height: 40px;
+    line-height: 200%;
+
+}
+
+.menu > li {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-right: 1px dashed #0a2b42;
+
+}
+
+.menu > li:first-child {
+    border-left: 1px dashed #0a2b42;;
+}
+
+.menu a {
+     color: #fff;
+     text-decoration: none;
+ }
+
+.menu a:hover {
+    color: #0a2b42;
+}
+
+#main {
+    text-align: center;
+    margin-top: 100px;
+    width: 60%;
+    float: left;
+}
+
+.main {
+    text-align: center;
+    margin-top: 100px;
+    width: 60%;
+    float: left;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    font-size: 20px;
+    /*font-weight: bold;*/
+    text-align: center;
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+    background-color: #568b85;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    /*background-color: white;*/
+    background-color: #98c9dc;
+    color: black;
+    display: none;
+    overflow: hidden;
+    margin-bottom: 2px;
+}
+
+.sidebar {
+    text-align: center;
+    margin-top: 100px;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 16%;
+    float: left;
+    font-size: 15px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 100px;
+    background-color: #4a5f8b;
+    color: black;
+}
+
+#accordionMenu {
+    margin-top: 60px;
+}
+
+#witamy {
+    width: 80%;
+    margin: auto;
+}
+
+
+
+
+
+/*
+
+#container {
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rectangle {
+    width: 960px;
+    margin: 20px;
+}
+
+.square {
+    width: 50%;
+    float: left;
+}
+
+#logo {
+    float: left;
+    font-size: 70px;
+    width: 600px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+#rest1 {
+    float: left;
+    font-size: 70px;
+    width: 300px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.title1 {
+    float: left;
+    margin: 10px;
+    width: 230px;
+    height: 150px;
+    background-color: #3095d3;
+}
+
+.title2 {
+    float: left;
+    margin: 10px;
+    width: 230px;
+    height: 150px;
+    background-color: #666666;
+}
+
+.title3 {
+    float: left;
+    margin: 10px;
+    width: 230px;
+    height: 150px;
+    background-color: #93c748;
+}
+
+.title4 {
+    float: left;
+    margin: 10px;
+    width: 480px;
+    height: 150px;
+    background-color: #ee5a32;
+}
+
+.title5 {
+    margin: 10px;
+    width: 480px;
+    height: 320px;
+    background-color: #666666;
+}
+
+.title6 {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 480px;
+    height: 150px;
+    background-color: #3e3fc7;
+}
+
+*/
