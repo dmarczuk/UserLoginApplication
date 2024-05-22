@@ -10,7 +10,11 @@ public class LoginAndRegisterFacade {
         return user;
     }
 
-    public User updateUser(User user) {
+    public User changeEmail(User user, String email) {
+        return user;
+    }
+
+    public User changePassword(User user, String password) {
         return user;
     }
 
