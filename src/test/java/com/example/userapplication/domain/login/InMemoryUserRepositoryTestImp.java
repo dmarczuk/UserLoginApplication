@@ -1,5 +1,7 @@
 package com.example.userapplication.domain.login;
 
+import com.example.userapplication.model.User;
+import com.example.userapplication.repository.UserRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,11 +1,13 @@
 package com.example.userapplication.domain.login;
 
+import com.example.userapplication.model.User;
+import com.example.userapplication.service.LoginService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginAndRegisterFacadeTest {
-    private final LoginAndRegisterFacade facade = new LoginAndRegisterFacade(new InMemoryUserRepositoryTestImp());
+    private final LoginService facade = new LoginService(new InMemoryUserRepositoryTestImp());
 
     @Test
     public void should_successfully_register_user() {

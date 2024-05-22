@@ -1,11 +1,11 @@
-package com.example.userapplication.domain.login;
+package com.example.userapplication.service;
 
+import com.example.userapplication.model.User;
+import com.example.userapplication.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
-import java.util.Optional;
-
 @AllArgsConstructor
-public class LoginAndRegisterFacade {
+public class LoginService {
 
     private final UserRepository userRepository;
 

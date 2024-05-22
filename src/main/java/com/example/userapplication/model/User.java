@@ -1,4 +1,4 @@
-package com.example.userapplication.domain.login;
+package com.example.userapplication.model;
 
 import lombok.Builder;
 
