@@ -1,6 +1,6 @@
 package com.example.userapplication.domain.login;
 
-import com.example.userapplication.model.User;
+import com.example.userapplication.model.MyUser;
 import com.example.userapplication.service.LoginService;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +12,11 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_successfully_register_user() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
 //        LoginAndRegisterFacade facade = new LoginAndRegisterFacade();
 
         //when
-        User registeredUser = facade.registerUser(user);
+        MyUser registeredUser = facade.registerUser(user);
 
         //then
         assertEquals(user, registeredUser);
@@ -26,12 +26,12 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_not_register_user_who_already_exist_in_database() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
         facade.registerUser(user);
         //        LoginAndRegisterFacade facade = new LoginAndRegisterFacade();
 
         //when
-        User registeredUser = facade.registerUser(user);
+        MyUser registeredUser = facade.registerUser(user);
 
         //then
 //        Throwable exception = assertThrows(
@@ -48,7 +48,7 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_success_login_user() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
         facade.registerUser(user);
 
         //when
@@ -62,7 +62,7 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_not_login_user_when_user_not_exist_in_database() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
 
         //when
         boolean ifUserLogin = facade.login(user);
@@ -74,12 +74,12 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_update_user_email() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
         facade.registerUser(user);
 
         //when
-        User updatedUser = facade.changeEmail(user, "newEmail");
-        boolean userExist = facade.ifUserExist(new User("Name", "password", "newEmail"));
+        MyUser updatedUser = facade.changeEmail(user, "newEmail");
+        boolean userExist = facade.ifUserExist(new MyUser("Name", "password", "newEmail"));
 
         //then
         assertTrue(userExist);
@@ -88,12 +88,12 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_update_user_password() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
         facade.registerUser(user);
 
         //when
-        User updatedUser = facade.changePassword(user, "newPassword");
-        boolean userExist = facade.ifUserExist(new User("Name", "newPassword", "email"));
+        MyUser updatedUser = facade.changePassword(user, "newPassword");
+        boolean userExist = facade.ifUserExist(new MyUser("Name", "newPassword", "email"));
 
         //then
         assertTrue(userExist);
@@ -102,7 +102,7 @@ class LoginAndRegisterFacadeTest {
     @Test
     public void should_delete_user_who_exist_in_database() {
         //given
-        User user = new User("Name", "password", "email");
+        MyUser user = new MyUser("Name", "password", "email");
         facade.registerUser(user);
 
         //when
