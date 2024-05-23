@@ -34,8 +34,8 @@ public class UserController {
 
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<UpdateUserResultDto> update (@RequestBody RegisterUserDto registerUserDto) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UpdateUserResultDto> update (@RequestBody RegisterUserDto registerUserDto, @PathVariable long id) {
         boolean userExist = loginService.ifUserExist(registerUserDto);
         if(userExist) {
             loginService.updateUser(registerUserDto);
@@ -43,8 +43,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new UpdateUserResultDto(userExist, registerUserDto.name()));
     }
 
-    @PostMapping("/remove")
-    public ResponseEntity<RemoveUserResultDto> remove (@RequestBody RegisterUserDto registerUserDto ) {
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<RemoveUserResultDto> remove (@RequestBody RegisterUserDto registerUserDto, @PathVariable long id) {
         loginService.removeUser(registerUserDto);
         return ResponseEntity.status(HttpStatus.OK).body(new RemoveUserResultDto(registerUserDto.name()));
     }

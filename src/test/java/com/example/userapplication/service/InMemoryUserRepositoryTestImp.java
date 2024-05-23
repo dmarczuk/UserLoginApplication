@@ -24,6 +24,11 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
+    public Optional<MyUser> findByName(String name) {
+        return Optional.ofNullable(inMemoryDatabase.get(name));
+    }
+
+    @Override
     public void flush() {
 
     }
@@ -167,6 +172,8 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     public Page<MyUser> findAll(Pageable pageable) {
         return null;
     }
+
+
 
 //    @Override
 //    public boolean find(User user) {
