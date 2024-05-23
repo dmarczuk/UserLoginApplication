@@ -3,16 +3,14 @@ package com.example.userapplication.service;
 import com.example.userapplication.dto.RegisterUserDto;
 import com.example.userapplication.dto.RegistrationResultDto;
 import com.example.userapplication.exception.UserAlreadyExistException;
-import com.example.userapplication.model.MyUser;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
-import org.springframework.dao.DuplicateKeyException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginServiceTest {
-    private final LoginService facade = new LoginService(new InMemoryUserRepositoryTestImp());
+    private final UserService facade = new UserService(new InMemoryUserRepositoryTestImp());
 
     @Test
     public void should_successfully_register_user() {

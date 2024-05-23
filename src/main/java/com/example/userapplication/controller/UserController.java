@@ -2,7 +2,7 @@ package com.example.userapplication.controller;
 
 import com.example.userapplication.dto.*;
 import com.example.userapplication.model.MyUser;
-import com.example.userapplication.service.LoginService;
+import com.example.userapplication.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
-    private final LoginService loginService;
+    private final UserService loginService;
 
     @GetMapping("/users")
     public List<MyUser> getUsers() {
