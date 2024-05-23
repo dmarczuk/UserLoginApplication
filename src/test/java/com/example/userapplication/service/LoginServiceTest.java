@@ -1,5 +1,7 @@
 package com.example.userapplication.service;
 
+import com.example.userapplication.dto.RegisterUserDto;
+import com.example.userapplication.dto.RegistrationResultDto;
 import com.example.userapplication.model.MyUser;
 import org.junit.jupiter.api.Test;
 
@@ -11,26 +13,25 @@ class LoginServiceTest {
     @Test
     public void should_successfully_register_user() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
-//        LoginAndRegisterFacade facade = new LoginAndRegisterFacade();
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
 
         //when
-        MyUser registeredUser = facade.registerUser(user);
+        RegistrationResultDto registrationResultDto = facade.registerUser(registerUserDto);
 
         //then
-        assertEquals(user, registeredUser);
+        assertTrue(registrationResultDto.ifUserRegister());
 
     }
 
     @Test
     public void should_not_register_user_who_already_exist_in_database() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
-        facade.registerUser(user);
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
+        facade.registerUser(registerUserDto);
         //        LoginAndRegisterFacade facade = new LoginAndRegisterFacade();
 
         //when
-        MyUser registeredUser = facade.registerUser(user);
+        RegistrationResultDto registrationResultDto = facade.registerUser(registerUserDto);
 
         //then
 //        Throwable exception = assertThrows(
@@ -40,18 +41,18 @@ class LoginServiceTest {
 //                }
 //        );
 //        assertEquals("Exception message", exception.getMessage());
-        assertTrue(false);
+        assertFalse(registrationResultDto.ifUserRegister());
 
     }
 
     @Test
     public void should_success_login_user() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
-        facade.registerUser(user);
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
+        facade.registerUser(registerUserDto);
 
         //when
-        boolean ifUserLogin = facade.login(user);
+        boolean ifUserLogin = facade.login(registerUserDto);
 
         //then
         assertTrue(ifUserLogin);
@@ -61,10 +62,10 @@ class LoginServiceTest {
     @Test
     public void should_not_login_user_when_user_not_exist_in_database() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
 
         //when
-        boolean ifUserLogin = facade.login(user);
+        boolean ifUserLogin = facade.login(registerUserDto);
 
         //then
         assertFalse(ifUserLogin);
@@ -73,12 +74,13 @@ class LoginServiceTest {
     @Test
     public void should_update_user_email() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
-        facade.registerUser(user);
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
+        facade.registerUser(registerUserDto);
 
         //when
-        MyUser updatedUser = facade.changeEmail(user, "newEmail");
-        boolean userExist = facade.ifUserExist(new MyUser("Name", "password", "newEmail"));
+        RegisterUserDto userToUpdate = new RegisterUserDto("Name", "password", "newEmail");
+        facade.updateUser(userToUpdate);
+        boolean userExist = facade.ifUserExist(new RegisterUserDto("Name", "password", "newEmail"));
 
         //then
         assertTrue(userExist);
@@ -87,12 +89,13 @@ class LoginServiceTest {
     @Test
     public void should_update_user_password() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
-        facade.registerUser(user);
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
+        facade.registerUser(registerUserDto);
 
         //when
-        MyUser updatedUser = facade.changePassword(user, "newPassword");
-        boolean userExist = facade.ifUserExist(new MyUser("Name", "newPassword", "email"));
+        RegisterUserDto userToUpdate = new RegisterUserDto("Name", "newPassword", "email");
+        facade.updateUser(userToUpdate);
+        boolean userExist = facade.ifUserExist(new RegisterUserDto("Name", "newPassword", "email"));
 
         //then
         assertTrue(userExist);
@@ -101,12 +104,12 @@ class LoginServiceTest {
     @Test
     public void should_delete_user_who_exist_in_database() {
         //given
-        MyUser user = new MyUser("Name", "password", "email");
-        facade.registerUser(user);
+        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
+        facade.registerUser(registerUserDto);
 
         //when
-        facade.removeUser(user);
-        boolean ifUserDeleted = facade.ifUserExist(user);
+        facade.removeUser(registerUserDto);
+        boolean ifUserDeleted = facade.ifUserExist(registerUserDto);
 
         //then
         assertFalse(ifUserDeleted);

@@ -1,8 +1,12 @@
 package com.example.userapplication.service;
 
+import com.example.userapplication.dto.RegisterUserDto;
+import com.example.userapplication.dto.RegistrationResultDto;
+import com.example.userapplication.exception.UserAlreadyExistException;
 import com.example.userapplication.model.MyUser;
 import com.example.userapplication.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,18 +17,24 @@ public class LoginService {
 
     private final UserRepository userRepository;
 
-    public MyUser registerUser(MyUser user) {
-        userRepository.save(user);
-        return user;
+    public RegistrationResultDto registerUser(RegisterUserDto registerUserDto) {
+        final MyUser myUser = new MyUser(registerUserDto.name(), registerUserDto.password(), registerUserDto.email());
+        try {
+            MyUser savedUser = userRepository.save(myUser);
+            return new RegistrationResultDto(savedUser.getId(), true, savedUser.getName());
+        } catch (DuplicateKeyException e) {
+            throw new UserAlreadyExistException("User already exist in database");
+        }
     }
 
-    public boolean login(MyUser user) {
-        return userRepository.findById(user.getName()).isPresent();
+    public boolean login(RegisterUserDto registerUserDto) {
+        return userRepository.findById(registerUserDto.name()).isPresent();
     }
 
-    public MyUser updateUser (MyUser user) {
-        userRepository.save(user);
-        return user;
+    public MyUser updateUser (RegisterUserDto registerUserDto) {
+        final MyUser myUser = new MyUser(registerUserDto.name(), registerUserDto.password(), registerUserDto.email());
+        MyUser updatedUser = userRepository.save(myUser);
+        return updatedUser;
     }
 
 //    public MyUser changeEmail(MyUser user, String email) {
@@ -39,16 +49,17 @@ public class LoginService {
 //        return userToSave;
 //    }
 
-    public void removeUser(MyUser user) {
-        userRepository.delete(user);
+    public void removeUser(RegisterUserDto registerUserDto) {
+        final MyUser myUser = new MyUser(registerUserDto.name(), registerUserDto.password(), registerUserDto.email());
+        userRepository.delete(myUser);
     }
 
     public List<MyUser> getUsers() {
         return userRepository.findAll();
     }
 
-    public boolean ifUserExist(MyUser user) {
-        return userRepository.findById(user.getName()).isPresent();
+    public boolean ifUserExist(RegisterUserDto registerUserDto) {
+        return userRepository.findById(registerUserDto.name()).isPresent();
     }
 
 }

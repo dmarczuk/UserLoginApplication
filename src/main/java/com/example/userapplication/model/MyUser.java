@@ -10,21 +10,21 @@ public class MyUser {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(unique = true, length = 255, nullable = false)
+        @Column(unique = true, nullable = false)
         private String name;
-        @Column(length = 255, nullable = false)
+        @Column(nullable = false)
         private String password;
-        @Column(length = 255, nullable = false)
+        @Column(nullable = false)
         private String email;
 
-//    public MyUser(String name, String password, String email) {
-//        this.name = name;
-//        this.password = password;
-//        this.email = email;
-//    }
-//
-//    public MyUser() {
-//    }
+    public MyUser(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+    public MyUser() {
+    }
 
     public Long getId() {
         return id;

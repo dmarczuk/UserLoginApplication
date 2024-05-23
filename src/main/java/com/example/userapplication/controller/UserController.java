@@ -1,5 +1,7 @@
 package com.example.userapplication.controller;
 
+import com.example.userapplication.dto.RegisterUserDto;
+import com.example.userapplication.dto.RegistrationResultDto;
 import com.example.userapplication.model.MyUser;
 import com.example.userapplication.service.LoginService;
 import lombok.AllArgsConstructor;
@@ -21,9 +23,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<MyUser> register(@RequestBody MyUser user ) {
-        MyUser registeredUser = loginService.registerUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+    public ResponseEntity<RegistrationResultDto> register(@RequestBody RegisterUserDto registerUserDto ) {
+        RegistrationResultDto registrationResultDto = loginService.registerUser(registerUserDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registrationResultDto);
     }
 
     @PostMapping("/login")
