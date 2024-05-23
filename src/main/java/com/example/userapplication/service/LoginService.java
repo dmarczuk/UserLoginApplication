@@ -33,8 +33,7 @@ public class LoginService {
 
     public MyUser updateUser (RegisterUserDto registerUserDto) {
         final MyUser myUser = new MyUser(registerUserDto.name(), registerUserDto.password(), registerUserDto.email());
-        MyUser updatedUser = userRepository.save(myUser);
-        return updatedUser;
+        return userRepository.save(myUser);
     }
 
 //    public MyUser changeEmail(MyUser user, String email) {

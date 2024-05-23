@@ -1,7 +1,6 @@
 package com.example.userapplication.controller;
 
-import com.example.userapplication.dto.RegisterUserDto;
-import com.example.userapplication.dto.RegistrationResultDto;
+import com.example.userapplication.dto.*;
 import com.example.userapplication.model.MyUser;
 import com.example.userapplication.service.LoginService;
 import lombok.AllArgsConstructor;
@@ -29,24 +28,25 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<MyUser> login(@RequestBody MyUser user ) {
-        boolean ifUserLogged = loginService.login(user);
-        if(ifUserLogged) {
-            return ResponseEntity.status(HttpStatus.OK).body(user);
-        }
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(user);
+    public ResponseEntity<LoginResultDto> login(@RequestBody RegisterUserDto registerUserDto ) {
+        boolean ifUserLogged = loginService.login(registerUserDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(ifUserLogged, registerUserDto.name()));
+
     }
 
     @PostMapping("/update")
-    public ResponseEntity<MyUser> update (@RequestBody MyUser user ) {
-        MyUser registeredUser = loginService.updateUser(user);
-        return ResponseEntity.status(HttpStatus.OK).body(registeredUser);
+    public ResponseEntity<UpdateUserResultDto> update (@RequestBody RegisterUserDto registerUserDto) {
+        boolean userExist = loginService.ifUserExist(registerUserDto);
+        if(userExist) {
+            loginService.updateUser(registerUserDto);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new UpdateUserResultDto(userExist, registerUserDto.name()));
     }
 
     @PostMapping("/remove")
-    public ResponseEntity<MyUser> remove (@RequestBody MyUser user ) {
-        loginService.removeUser(user);
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+    public ResponseEntity<RemoveUserResultDto> remove (@RequestBody RegisterUserDto registerUserDto ) {
+        loginService.removeUser(registerUserDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new RemoveUserResultDto(registerUserDto.name()));
     }
 
 

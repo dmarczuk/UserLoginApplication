@@ -2,9 +2,13 @@ package com.example.userapplication.service;
 
 import com.example.userapplication.dto.RegisterUserDto;
 import com.example.userapplication.dto.RegistrationResultDto;
+import com.example.userapplication.exception.UserAlreadyExistException;
 import com.example.userapplication.model.MyUser;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.DuplicateKeyException;
 
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginServiceTest {
@@ -26,23 +30,18 @@ class LoginServiceTest {
     @Test
     public void should_not_register_user_who_already_exist_in_database() {
         //given
-        RegisterUserDto registerUserDto = new RegisterUserDto("Name", "password", "email");
-        facade.registerUser(registerUserDto);
-        //        LoginAndRegisterFacade facade = new LoginAndRegisterFacade();
+        RegisterUserDto registeredUser = new RegisterUserDto("Name", "password", "email");
+        RegisterUserDto userToRegister = new RegisterUserDto("Name", "password", "email");
+        facade.registerUser(registeredUser);
+        facade.registerUser(registeredUser);
 
         //when
-        RegistrationResultDto registrationResultDto = facade.registerUser(registerUserDto);
+        Throwable thrown = catchThrowable(() -> facade.registerUser(userToRegister));
 
         //then
-//        Throwable exception = assertThrows(
-//                IllegalArgumentException.class,
-//                () -> {
-//                    throw new IllegalArgumentException("Exception message");
-//                }
-//        );
-//        assertEquals("Exception message", exception.getMessage());
-        assertFalse(registrationResultDto.ifUserRegister());
-
+        AssertionsForClassTypes.assertThat(thrown)
+                .isInstanceOf(UserAlreadyExistException.class)
+                .hasMessage("User already exist in database");
     }
 
     @Test
