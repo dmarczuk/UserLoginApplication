@@ -1,4 +1,4 @@
-package com.example.userapplication.domain.login;
+package com.example.userapplication.service;
 
 import com.example.userapplication.model.MyUser;
 import com.example.userapplication.repository.UserRepository;

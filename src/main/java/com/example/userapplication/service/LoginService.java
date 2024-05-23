@@ -5,6 +5,8 @@ import com.example.userapplication.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Component
 public class LoginService {
@@ -39,6 +41,10 @@ public class LoginService {
 
     public void removeUser(MyUser user) {
         userRepository.delete(user);
+    }
+
+    public List<MyUser> getUsers() {
+        return userRepository.findAll();
     }
 
     public boolean ifUserExist(MyUser user) {

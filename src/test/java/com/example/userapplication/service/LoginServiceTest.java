@@ -1,12 +1,11 @@
-package com.example.userapplication.domain.login;
+package com.example.userapplication.service;
 
 import com.example.userapplication.model.MyUser;
-import com.example.userapplication.service.LoginService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginAndRegisterFacadeTest {
+class LoginServiceTest {
     private final LoginService facade = new LoginService(new InMemoryUserRepositoryTestImp());
 
     @Test
