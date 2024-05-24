@@ -1,10 +1,13 @@
 package com.example.userapplication.repository;
 
-import com.example.userapplication.model.User;
+import com.example.userapplication.model.MyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, String> {
+import java.util.Optional;
 
+@Repository
+public interface UserRepository extends JpaRepository<MyUser, String> {
+
+    Optional<MyUser> findByName(String name);
 }

@@ -1,6 +1,6 @@
-package com.example.userapplication.domain.login;
+package com.example.userapplication.service;
 
-import com.example.userapplication.model.User;
+import com.example.userapplication.model.MyUser;
 import com.example.userapplication.repository.UserRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -15,12 +15,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 public class InMemoryUserRepositoryTestImp implements UserRepository {
-    Map<String, User> inMemoryDatabase = new ConcurrentHashMap<>();
+    Map<String, MyUser> inMemoryDatabase = new ConcurrentHashMap<>();
 
     @Override
-    public User save(User user) {
-        inMemoryDatabase.put(user.name(), user);
+    public MyUser save(MyUser user) {
+        inMemoryDatabase.put(user.getName(), user);
         return user;
+    }
+
+    @Override
+    public Optional<MyUser> findByName(String name) {
+        return Optional.ofNullable(inMemoryDatabase.get(name));
     }
 
     @Override
@@ -29,17 +34,17 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
-    public <S extends User> S saveAndFlush(S entity) {
+    public <S extends MyUser> S saveAndFlush(S entity) {
         return null;
     }
 
     @Override
-    public <S extends User> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends MyUser> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<User> entities) {
+    public void deleteAllInBatch(Iterable<MyUser> entities) {
 
     }
 
@@ -54,62 +59,62 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
-    public User getOne(String s) {
+    public MyUser getOne(String s) {
         return null;
     }
 
     @Override
-    public User getById(String s) {
+    public MyUser getById(String s) {
         return null;
     }
 
     @Override
-    public User getReferenceById(String s) {
+    public MyUser getReferenceById(String s) {
         return null;
     }
 
     @Override
-    public <S extends User> Optional<S> findOne(Example<S> example) {
+    public <S extends MyUser> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends User> List<S> findAll(Example<S> example) {
+    public <S extends MyUser> List<S> findAll(Example<S> example) {
         return null;
     }
 
     @Override
-    public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends MyUser> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
     @Override
-    public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends MyUser> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends User> long count(Example<S> example) {
+    public <S extends MyUser> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends User> boolean exists(Example<S> example) {
+    public <S extends MyUser> boolean exists(Example<S> example) {
         return false;
     }
 
     @Override
-    public <S extends User, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends MyUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
-    public <S extends User> List<S> saveAll(Iterable<S> entities) {
+    public <S extends MyUser> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<User> findById(String s) {
+    public Optional<MyUser> findById(String s) {
         return Optional.ofNullable(inMemoryDatabase.get(s));
     }
 
@@ -119,12 +124,12 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<MyUser> findAll() {
         return null;
     }
 
     @Override
-    public List<User> findAllById(Iterable<String> strings) {
+    public List<MyUser> findAllById(Iterable<String> strings) {
         return null;
     }
 
@@ -139,8 +144,8 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
-    public void delete(User entity) {
-        inMemoryDatabase.remove(entity.name());
+    public void delete(MyUser entity) {
+        inMemoryDatabase.remove(entity.getName());
     }
 
     @Override
@@ -149,7 +154,7 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends User> entities) {
+    public void deleteAll(Iterable<? extends MyUser> entities) {
 
     }
 
@@ -159,14 +164,16 @@ public class InMemoryUserRepositoryTestImp implements UserRepository {
     }
 
     @Override
-    public List<User> findAll(Sort sort) {
+    public List<MyUser> findAll(Sort sort) {
         return null;
     }
 
     @Override
-    public Page<User> findAll(Pageable pageable) {
+    public Page<MyUser> findAll(Pageable pageable) {
         return null;
     }
+
+
 
 //    @Override
 //    public boolean find(User user) {
