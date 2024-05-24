@@ -34,13 +34,18 @@ public class UserService {
 
     public UpdateUserResultDto updateUser (RegisterUserDto registerUserDto) {
         Optional<MyUser> user = userRepository.findByName(registerUserDto.name());
-        if (user.isPresent()) {
-            user.get().setName(registerUserDto.name());
-            user.get().setPassword(registerUserDto.password());
-            user.get().setEmail(registerUserDto.email());
-            userRepository.save(user.get());
+        try {
+            if (user.isPresent()) {
+                user.get().setName(registerUserDto.name());
+                user.get().setPassword(registerUserDto.password());
+                user.get().setEmail(registerUserDto.email());
+                userRepository.save(user.get());
+            }
+            return new UpdateUserResultDto(user.isPresent(), registerUserDto.name());
+        } catch (Exception e) { // change on different exception
+            throw new UserAlreadyExistException("Email " + registerUserDto.email() + " already exist in database");
         }
-        return new UpdateUserResultDto(user.isPresent(), registerUserDto.name());
+
     }
 
     public void removeUser(RegisterUserDto registerUserDto) {
