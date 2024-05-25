@@ -47,7 +47,7 @@ public class UserController {
             SecurityContextHolder.getContext().setAuthentication(authenticationRequest);
             return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(true, registerUserDto.name(), "Successful login"));
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(false, registerUserDto.name(), "Invalid username or password"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LoginResultDto(false, registerUserDto.name(), "Invalid username or password"));
         }
     }
 
@@ -60,7 +60,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new UpdateUserResultDto(userExist, registerUserDto.name()));
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("/remove")
     public ResponseEntity<RemoveUserResultDto> remove (@RequestBody RegisterUserDto registerUserDto) {
         loginService.removeUser(registerUserDto);
         return ResponseEntity.status(HttpStatus.OK).body(new RemoveUserResultDto(registerUserDto.name()));

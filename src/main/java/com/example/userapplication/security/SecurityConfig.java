@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,16 +43,22 @@ public class SecurityConfig {
                     registry.requestMatchers("/register/**").permitAll();
                     registry.requestMatchers("/login/**").permitAll();
                     registry.requestMatchers("/users/**").permitAll();
-                    registry.requestMatchers("/update/**").hasRole("USER");
+                    registry.requestMatchers("/user_home/**").hasRole("USER");
+                    registry.requestMatchers("/admin_home/**").hasRole("ADMIN");
+//                    registry.requestMatchers("/update/**").hasRole("USER");
+                    registry.requestMatchers("/update/**").permitAll();
                     registry.requestMatchers("remove/**").hasRole("ADMIN");
+//                    registry.requestMatchers("remove/**").permitAll();
                     registry.requestMatchers("/swagger-ui/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
-                .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/login")
-                            .successHandler()
-                            .permitAll();
-                })
+//                .formLogin(httpSecurityFormLoginConfigurer -> {
+//                    httpSecurityFormLoginConfigurer
+//                            .loginPage("/login")
+//                            .successHandler(new AuthenticationSuccessHandler())
+//                            .permitAll();
+//                })
+//                .logout(LogoutConfigurer::permitAll)
                 .build();
     }
 
