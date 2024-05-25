@@ -5,12 +5,13 @@ import com.example.userapplication.dto.RegistrationResultDto;
 import com.example.userapplication.exception.UserAlreadyExistException;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginServiceTest {
-    private final UserService facade = new UserService(new InMemoryUserRepositoryTestImp());
+    private final UserService facade = new UserService(new InMemoryUserRepositoryTestImp(), new BCryptPasswordEncoder());
 
     @Test
     public void should_successfully_register_user() {

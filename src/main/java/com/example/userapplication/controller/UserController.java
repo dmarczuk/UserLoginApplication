@@ -7,6 +7,11 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +21,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService loginService;
-   // private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
 //    public UserController(AuthenticationManager authenticationManager, UserService loginService) {
 //        this.loginService = loginService;
@@ -36,15 +41,18 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResultDto> login(@RequestBody RegisterUserDto registerUserDto ) {
-        //Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(registerUserDto.name(), registerUserDto.password());
-        //Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-//        boolean ifUserLogged = loginService.login(registerUserDto);
-//        return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(authenticationResponse.isAuthenticated(), registerUserDto.name()));
-        return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(true, registerUserDto.name()));
+        try {
+            Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(registerUserDto.name(), registerUserDto.password());
+            authenticationManager.authenticate(authenticationRequest);
+            SecurityContextHolder.getContext().setAuthentication(authenticationRequest);
+            return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(true, registerUserDto.name(), "Successful login"));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new LoginResultDto(false, registerUserDto.name(), "Invalid username or password"));
+        }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<UpdateUserResultDto> update (@RequestBody RegisterUserDto registerUserDto, @PathVariable long id) {
+    @PutMapping("/update")
+    public ResponseEntity<UpdateUserResultDto> update (@RequestBody RegisterUserDto registerUserDto) {
         boolean userExist = loginService.ifUserExist(registerUserDto);
         if(userExist) {
             loginService.updateUser(registerUserDto);
@@ -52,8 +60,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new UpdateUserResultDto(userExist, registerUserDto.name()));
     }
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<RemoveUserResultDto> remove (@RequestBody RegisterUserDto registerUserDto, @PathVariable long id) {
+    @PostMapping("/remove")
+    public ResponseEntity<RemoveUserResultDto> remove (@RequestBody RegisterUserDto registerUserDto) {
         loginService.removeUser(registerUserDto);
         return ResponseEntity.status(HttpStatus.OK).body(new RemoveUserResultDto(registerUserDto.name()));
     }

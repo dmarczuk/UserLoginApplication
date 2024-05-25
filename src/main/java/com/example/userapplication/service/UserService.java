@@ -7,6 +7,7 @@ import com.example.userapplication.exception.UserAlreadyExistException;
 import com.example.userapplication.model.MyUser;
 import com.example.userapplication.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,9 +18,10 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public RegistrationResultDto registerUser(RegisterUserDto registerUserDto) {
-        final MyUser myUser = new MyUser(registerUserDto.name(), registerUserDto.password(), registerUserDto.email());
+        final MyUser myUser = new MyUser(registerUserDto.name(), passwordEncoder.encode(registerUserDto.password()), registerUserDto.email(), "USER");
         try {
             MyUser savedUser = userRepository.save(myUser);
             return new RegistrationResultDto(savedUser.getId(), true, savedUser.getName());

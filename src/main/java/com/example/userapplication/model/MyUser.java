@@ -16,11 +16,21 @@ public class MyUser {
         private String password;
         @Column(unique = true, nullable = false)
         private String email;
+        private String role;
 
-    public MyUser(String name, String password, String email) {
+    public MyUser(String name, String password, String email, String role) {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public MyUser() {

@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-    <h1 class="logo">Login User Application
+    <h1 class="logo">Registration Page
     </h1>
 
     <nav>
@@ -16,7 +16,7 @@
             <li><a th:href="@{/login}">Login</a></li>
             <li><a th:href="@{/register}">Register</a></li>
             <li><a th:href="@{/update}">Edit user</a></li>
-            <li><a th:href="@{/show_users}">Show users</a></li>
+            <li><a th:href="@{/users}">Show users</a></li>
             <li><a th:href="@{/remove}">Remove user</a></li>
 
         </ul>
@@ -26,24 +26,33 @@
     Zarejestruj sie
 </div>
 
-<!--    <form th:action="@{/users}" th:object="${newUser}" method="post" id="panel">-->
+        <h2>Register</h2>
+        <form th:action="@{/register}" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+
+<!--    <form th:action="@{/register}" method="post" id="panel">-->
 <!--        <label form="Username">Username:</label>-->
-<!--        <input type="text" class="username" name="username" th:field="*{username}">-->
+<!--        <input type="text" class="username" name="username" th:field="*{name}">-->
 <!--        <label form="password">Password:</label>-->
 <!--        <input type="password" id="password" name="password" th:field="*{password}">-->
-<!--        <label form="Name">Name:</label>-->
-<!--        <input type="text" class="username" name="Name" th:field="*{name}">-->
-<!--        <label form="Surname">Surname:</label>-->
-<!--        <input type="text" class="username" name="Surname" th:field="*{surname}">-->
 <!--        <label form="Mail">Mail:</label>-->
-<!--        <input type="text" class="username" name="username" th:field="*{mail}">-->
-<!--        <label form="CompanyName">CompanyName:</label>-->
-<!--        <input type="text" class="username" name="Adres" th:field="*{companyName}">-->
-<!--        <label form="CompanyAddress">CompanyAddress:</label>-->
-<!--        <input type="text" class="username" name="Adres" th:field="*{companyAddress}">-->
+<!--        <input type="text" class="username" name="username" th:field="*{email}">-->
 <!--        <div id="lower">-->
-<!--            <input type="checkbox"><label class="check" form="checkbox">Zapamiętaj mnie!</label>-->
-<!--            <input type="submit" value="Zarejestruj">-->
+<!--&lt;!&ndash;            <input type="checkbox"><label class="check" form="checkbox">Zapamiętaj mnie!</label>&ndash;&gt;-->
+<!--            <input type="submit" value="Register">-->
 <!--        </div>-->
 <!--    </form>-->
 

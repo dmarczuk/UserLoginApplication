@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
@@ -34,16 +36,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
+                    registry.requestMatchers("/").permitAll();
                     registry.requestMatchers("/register/**").permitAll();
                     registry.requestMatchers("/login/**").permitAll();
+                    registry.requestMatchers("/users/**").permitAll();
                     registry.requestMatchers("/update/**").hasRole("USER");
                     registry.requestMatchers("remove/**").hasRole("ADMIN");
                     registry.requestMatchers("/swagger-ui/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
-                .csrf(AbstractHttpConfigurer::disable)
-                //.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(httpSecurityFormLoginConfigurer -> {
+                    httpSecurityFormLoginConfigurer.loginPage("/login")
+                            .successHandler()
+                            .permitAll();
+                })
                 .build();
     }
 
@@ -65,6 +73,18 @@ public class SecurityConfig {
 //        return new InMemoryUserDetailsManager(adminUser);
 //    }
 
+//    @Bean
+//    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService)  throws Exception {
+//        return http.getSharedObject(AuthenticationManagerBuilder.class)
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder)
+//                .and().build();
+//    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
     @Bean
     public UserDetailsService userDetailsService() {
         return userDetailsService;
