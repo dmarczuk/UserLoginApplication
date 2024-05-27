@@ -23,11 +23,6 @@ public class UserController {
     private final UserService loginService;
     private final AuthenticationManager authenticationManager;
 
-//    public UserController(AuthenticationManager authenticationManager, UserService loginService) {
-//        this.loginService = loginService;
-//        this.authenticationManager = authenticationManager;
-//    }
-
     @GetMapping("/users")
     public List<MyUser> getUsers() {
         return loginService.getUsers();

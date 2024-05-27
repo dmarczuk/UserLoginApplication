@@ -25,7 +25,7 @@ public class UserService {
         try {
             MyUser savedUser = userRepository.save(myUser);
             return new RegistrationResultDto(savedUser.getId(), true, savedUser.getName());
-        } catch (Exception e) { // change on different exception
+        } catch (Exception e) { // change for different exception
             throw new UserAlreadyExistException("User " + myUser.getName() + " already exist in database");
         }
     }
@@ -44,7 +44,7 @@ public class UserService {
                 userRepository.save(user.get());
             }
             return new UpdateUserResultDto(user.isPresent(), registerUserDto.name());
-        } catch (Exception e) { // change on different exception
+        } catch (Exception e) { // change for different exception
             throw new UserAlreadyExistException("Email " + registerUserDto.email() + " already exist in database");
         }
 

@@ -43,12 +43,13 @@ public class SecurityConfig {
                     registry.requestMatchers("/register/**").permitAll();
                     registry.requestMatchers("/login/**").permitAll();
                     registry.requestMatchers("/users/**").permitAll();
-                    registry.requestMatchers("/user_home/**").hasRole("USER");
-                    registry.requestMatchers("/admin_home/**").hasRole("ADMIN");
+//                    registry.requestMatchers("/users/**").hasRole("ADMIN");
 //                    registry.requestMatchers("/update/**").hasRole("USER");
                     registry.requestMatchers("/update/**").permitAll();
-                    registry.requestMatchers("remove/**").hasRole("ADMIN");
-//                    registry.requestMatchers("remove/**").permitAll();
+                    registry.requestMatchers("remove/**").permitAll();
+//                    registry.requestMatchers("remove/**").hasRole("ADMIN");
+                    registry.requestMatchers("/user_home/**").hasRole("USER");
+                    registry.requestMatchers("/admin_home/**").hasRole("ADMIN");
                     registry.requestMatchers("/swagger-ui/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
