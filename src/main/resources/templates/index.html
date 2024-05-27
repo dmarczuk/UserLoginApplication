@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginUserApplication</title>
+    <link rel="stylesheet" href="/css/Style.css" type="text/css"/>
+</head>
+
+<body>
+    <header>
+        <h1 class="logo">Login User Application
+        </h1>
+        <nav>
+            <ul class="menu">
+                <li><a th:href="@{/login}">Login</a></li>
+                <li><a th:href="@{/register}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="container">
+        <article>
+            <section>
+                <div class="sidebar"></div>
+                <div id="main">
+                    <div id="accordionMenu">
+                        <div id="welcome">
+                            <p>Welcome!!!</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat.</p></br>
+                        </div>
+                    </div>
+                    <div class="content"></div>
+                </div>
+                <div class="sidebar"></div>
+                <div style="clear: both"></div>
+                <div class="footer">
+                    <p> Login User Application </br> </p>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
